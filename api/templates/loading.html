@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loading...</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Processing...</h1>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            function checkStatus() {
+                $.getJSON('/status/{{ filename }}', function(data) {
+                    if (data.status == "done") {
+                        window.location.href = '/result/{{ filename }}';
+                    } else {
+                        setTimeout(checkStatus, 1000);
+                    }
+                });
+            }
+            checkStatus();
+        });
+    </script>
+</body>
+</html>
